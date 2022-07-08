@@ -50,7 +50,7 @@
         <div class="card m-2" style="width: 18rem;">
             <img  src="{{url_for('static', filename='img/' +'OIP.jfif' )}}" style ="width:auto; height:100%;"class="card-img-top img-thumbnail " alt="Clinic">
             <div class="card-body">
-              <a href="#" class="btn btn-primary">Clinic</a>
+              <a href="{{ url_for('patients.add_patient') }}" class="btn btn-primary">Clinic</a>
             </div>
           </div>
           <div class="card m-2" style="width: 18rem;">

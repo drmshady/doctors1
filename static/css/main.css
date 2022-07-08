@@ -62,6 +62,9 @@ a.article-title:hover {
   text-decoration: none;
 }
 
+#gender{
+  list-style-type: none
+}
 .article-svg {
   width: 25px;
   height: 25px;

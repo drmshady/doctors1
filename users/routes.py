@@ -1,7 +1,7 @@
 from flask import render_template, url_for, flash, redirect, request, Blueprint
 from flask_login import login_user, current_user, logout_user, login_required
 from doctors import db, bcrypt
-from doctors.models import User, Post
+from doctors.models import User, Post, Clinic
 from doctors.users.forms import (RegistrationForm, LoginForm, UpdateAccountForm,
                                    RequestResetForm, ResetPasswordForm)
 from doctors.users.utils import save_picture, send_reset_email
@@ -16,9 +16,14 @@ def register():
     form = RegistrationForm()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        user = User(username=form.username.data, email=form.email.data, password=hashed_password)
+        clinic = Clinic(name =form.clinic.data)
+        db.session.add(clinic)
+        user = User(username=form.username.data, email=form.email.data, password=hashed_password, clinic=clinic)
+        clinic = Clinic(name =form.clinic.data)
         db.session.add(user)
+        
         db.session.commit()
+
         flash('Your account has been created! You are now able to log in', 'success')
         return redirect(url_for('users.login'))
     return render_template('users/register.html', title='Register', form=form)
